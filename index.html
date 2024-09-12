@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Unidades</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <h1>Conversor de Unidades</h1>
+    <form id="conversorForm">
+        <label for="tipo">Converter comprimento ou massa?</label>
+        <select id="tipo">
+            <option value="comprimento">Comprimento</option>
+            <option value="massa">Massa</option>
+        </select><br>
+        
+        <label for="valor">Valor:</label>
+        <input type="number" id="valor" required><br>
+        
+        <label for="unidadeOrigem">Unidade de origem:</label>
+        <select id="unidadeOrigem">
+            <option value="m">metros</option>
+            <option value="km">quilômetros</option>
+            <option value="g">gramas</option>
+            <option value="kg">quilogramas</option>
+        </select><br>
+        
+        <label for="unidadeDestino">Unidade de destino:</label>
+        <select id="unidadeDestino">
+            <option value="m">metros</option>
+            <option value="km">quilômetros</option>
+            <option value="g">gramas</option>
+            <option value="kg">quilogramas</option>
+        </select><br>
+        
+        <button type="button" onclick="converter()">Converter</button>
+    </form>
+    <div id="resultado"></div>
+    
+    <script>
+        function converter() {
+            const tipo = document.getElementById('tipo').value;
+            const valor = parseFloat(document.getElementById('valor').value);
+            const unidadeOrigem = document.getElementById('unidadeOrigem').value;
+            const unidadeDestino = document.getElementById('unidadeDestino').value;
+            
+            let resultado;
+            
+            if (tipo === 'comprimento') {
+                const unidadesComprimento = {
+                    'm': 1,
+                    'km': 1000,
+                };
+                resultado = valor * (unidadesComprimento[unidadeDestino] / unidadesComprimento[unidadeOrigem]);
+            } else {
+                const unidadesMassa = {
+                    'g': 1,
+                    'kg': 1000,
+                };
+                resultado = valor * (unidadesMassa[unidadeDestino] / unidadesMassa[unidadeOrigem]);
+            }
+            
+            document.getElementById('resultado').innerText = `${valor} ${unidadeOrigem} é igual a ${resultado} ${unidadeDestino}`;
+        }
+    </script>
+</body>
+</html>
